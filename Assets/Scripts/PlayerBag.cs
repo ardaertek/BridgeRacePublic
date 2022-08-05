@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerBag : MonoBehaviour
 {
     [SerializeField] public List<GameObject> ItemList;
-    [SerializeField] private DoBridge BridgeMaker;
+    [SerializeField] private BridgeMaker BridgeMaker;
     [SerializeField] private int _index;
+    [SerializeField] private LayerMask _changeLayer;
     PlayerController PController;
     public int GetIndex()
     {
@@ -23,45 +24,67 @@ public class PlayerBag : MonoBehaviour
         PController.MovementSpeed -= 0.01f * ItemList.Count;
         ItemList.Add(obj);
     }
-    public GameObject GetItemFromInventory()
+    public void GetItemFromInventory()
     {
-
         if (_index == 0)
         {
-            return null;
+            return;
         }
         _index--;
         PController.MovementSpeed += 0.01f * ItemList.Count;
         GameObject obj = ItemList[ItemList.Count - 1];
         ItemList.Remove(obj);
-        return obj;
+        obj.SetActive(false);
     }
-    private IEnumerator _bridgeCourutine;
 
-    public void BridgeCourutineStarter()
-    {
-        _bridgeCourutine = DoBridgeCourutine();
-        StartCoroutine(_bridgeCourutine);
-    }
-    public void BridgeCourutineStoper()
-    {
 
-        if (_bridgeCourutine != null)
+    [SerializeField] GameObject rayPos;
+    Ray ray;
+    RaycastHit hit;
+    RaycastHit hit2;
+    public LayerMask layer;
+    public bool check;
+    GameObject objj;
+    private void FixedUpdate()
+    {
+        if (Physics.Raycast(rayPos.transform.position, rayPos.transform.forward, out hit, 1f, layer))
         {
-            StopCoroutine(_bridgeCourutine);
-            _bridgeCourutine = null;
+            if (ItemList.Count > 0)
+            {
+                objj = hit.transform.gameObject;
+                objj.layer = LayerMask.NameToLayer("Default");
+                GetItemFromInventory();
+                BridgeMaker.MakeBridge(objj);
+                Debug.Log(objj.name);
+            }
         }
     }
 
 
-    IEnumerator DoBridgeCourutine()
-    {
-        int loopCount = ItemList.Count;
-        for (int i = 0; i < loopCount; i++)
-        {
+    //private IEnumerator _bridgeCourutine;
 
-            BridgeMaker.MakeBridge(GetItemFromInventory());
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
+    //public void BridgeCourutineStarter()
+    //{
+    //    _bridgeCourutine = DoBridgeCourutine();
+    //    StartCoroutine(_bridgeCourutine);
+    //}
+    //public void BridgeCourutineStoper()
+    //{
+
+    //    if (_bridgeCourutine != null)
+    //    {
+    //        StopCoroutine(_bridgeCourutine);
+    //        _bridgeCourutine = null;
+    //    }
+    //}
+    //IEnumerator DoBridgeCourutine()
+    //{
+    //    int loopCount = ItemList.Count;
+    //    for (int i = 0; i < loopCount; i++)
+    //    {
+    //        GetItemFromInventory();
+    //        BridgeMaker.MakeBridge(objj);
+    //        yield return new WaitForSeconds(0.5f);
+    //    }
+    //}
 }

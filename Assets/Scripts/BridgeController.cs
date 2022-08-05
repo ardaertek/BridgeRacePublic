@@ -5,21 +5,25 @@ using UnityEngine;
 public class BridgeController : MonoBehaviour
 {
     [SerializeField] private ItemCollector IC;
-    [SerializeField] private DoBridge DB;
+    //[SerializeField] private DoBridge DB;
+    [SerializeField] private BridgeMaker BM;
     private void OnTriggerEnter(Collider other)
     {
         IC = other.GetComponentInChildren<ItemCollector>();
-        DB = other.GetComponentInChildren<DoBridge>();
-        DB.enabled = true;
+        //DB = other.GetComponentInChildren<DoBridge>();
+        BM = other.GetComponentInChildren<BridgeMaker>();
+        //DB.enabled = true;
         IC.SetDoBridge(true);
-        DB.SetDoBridge(true);
-        IC.GetInventory.BridgeCourutineStarter();
+        BM.SetDoBridge(true);
+        //DB.SetDoBridge(true);
+        //IC.GetInventory.BridgeCourutineStarter();
     }
     private void OnTriggerExit(Collider other)
     {
-        DB.enabled = false;
+        //DB.enabled = false;
         IC.SetDoBridge(false);
-        DB.SetDoBridge(false);
-        IC.GetInventory.BridgeCourutineStoper();
+        BM.SetDoBridge(false);
+        //DB.SetDoBridge(false);
+        //IC.GetInventory.BridgeCourutineStoper();
     }
 }

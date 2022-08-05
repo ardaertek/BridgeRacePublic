@@ -5,9 +5,12 @@ using UnityEngine;
 public class CollectableItemScript : MonoBehaviour
 {
     [SerializeField] private int _colorID;
-    [SerializeField] private Collider _closeCollider;
     public int ColorID { get => _colorID; }
-    [SerializeField] Collider col;
+    Collider col;
+    private void Start()
+    {
+        col = GetComponent<Collider>();
+    }
     public void OffCollider()
     {
         col.enabled = false;
@@ -15,10 +18,6 @@ public class CollectableItemScript : MonoBehaviour
     public void OnCollider()
     {
         col.enabled = true;
-    }
-    public void OffObstacleCollider()
-    {
-        _closeCollider.enabled = false;
     }
     private void Update()
     {
