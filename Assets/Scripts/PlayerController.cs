@@ -64,11 +64,11 @@ public class PlayerController : MonoBehaviour
         {
             _canControl = false;
             AnimC.isRunning(true);
-            transform.DOMove(other.transform.position, 3f).OnComplete(() =>
+            transform.DOMove(new Vector3(other.transform.position.x,transform.position.y,other.transform.position.z), 1.5f).OnComplete(() =>
             {
                 transform.rotation = new Quaternion(0, 180, 0,0);
                 AnimC.isRunning(false);
-                AnimC.isVictory();
+                AnimC.isVictory(true);
             });
         }
     }

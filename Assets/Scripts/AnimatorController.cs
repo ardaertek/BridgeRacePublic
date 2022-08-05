@@ -14,7 +14,7 @@ public class AnimatorController : MonoBehaviour
     {
         _animator.SetBool("isRunning",value);
     }
-    public void isVictory()
+    public void isVictory(bool value)
     {
         _animator.SetBool("isVictory", true);
     }
