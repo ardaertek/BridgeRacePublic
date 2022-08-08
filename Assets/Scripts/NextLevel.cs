@@ -16,6 +16,7 @@ public class NextLevel : MonoBehaviour
     {
         other.GetComponent<PlayerController>().Pos = new Vector3(0, 3, 25);
         _previousSpawner.SetActive(false);
+        if(_nextSpawner != null)
         _nextSpawner.SetActive(true);
         
     }

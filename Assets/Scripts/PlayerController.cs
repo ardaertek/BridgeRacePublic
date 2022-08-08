@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
                 AnimC.isRunning(false);
                 AnimC.isVictory(true);
             });
+            Time.timeScale = 0;
         }
     }
 }
