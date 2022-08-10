@@ -7,8 +7,6 @@ using System;
 public class BridgeController : MonoBehaviour
 {
     [SerializeField] private ItemCollector IC;
-    //[SerializeField] private DoBridge DB;
-    [SerializeField] private BridgeMaker BM;
     [SerializeField] Transform nextlevel;
 
     //AI
@@ -19,14 +17,12 @@ public class BridgeController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IC = other.GetComponentInChildren<ItemCollector>();
-        BM = other.GetComponentInChildren<BridgeMaker>();
         if (other.TryGetComponent(out AIC))
         {
+            AIC._steCount = Index;
             AIC._doBridge = true;
         }
         IC.SetDoBridge(true);
-        BM.SetDoBridge(true);
-        Index += IC.GetInventory.ItemList.Count;
     }
     private void OnTriggerExit(Collider other)
     {
@@ -35,6 +31,5 @@ public class BridgeController : MonoBehaviour
             AIC._doBridge = false;
         }
         IC.SetDoBridge(false);
-        BM.SetDoBridge(false);
     }
 }

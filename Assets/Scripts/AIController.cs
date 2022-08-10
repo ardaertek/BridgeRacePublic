@@ -15,6 +15,7 @@ public class AIController : MonoBehaviour
     LevelHolder _levelHolder;
     public bool _doBridge;
     public bool _goEntry;
+    public float _steCount;
     private void Start()
     {
         _levelHolder = GetComponentInParent<LevelHolder>();
@@ -32,16 +33,16 @@ public class AIController : MonoBehaviour
             {
                 nav.SetDestination(_bridgeSelecter().GetComponent<Bridges>().ExitPoint.position);
             }
-            else
+            if(_inventory.ItemList.Count == 0)
             {
-                nav.SetDestination(_levelHolder.LevelPosition.position);
+                if(_steCount != 26) nav.SetDestination(_levelHolder.LevelPosition.position);
+                if(_steCount == 26) nav.SetDestination(_bridgeSelecter().GetComponent<Bridges>().ExitPoint.position);
             }
         }
         if (_inventory.ItemList.Count >= 7 && !_doBridge)
         {
-            Vector3 pos = _bridgeSelecter().GetComponent<Bridges>().EntryPoint.position;
-            _sightRange = 2.3f;
-            nav.SetDestination(pos);
+            nav.SetDestination(_bridgeSelecter().GetComponent<Bridges>().EntryPoint.position);
+            _sightRange = 1.5f;
         }
         else _sightRange = 4f;
         if (_collectableObjects.Length != 0)

@@ -389,7 +389,6 @@ GameObject:
   - component: {fileID: 1678760558606387853}
   - component: {fileID: 1678760558606387843}
   - component: {fileID: 1678760558606387842}
-  - component: {fileID: 1678760558606387848}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -495,23 +494,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1678760558606387848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1678760558606387841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a091d2dde6e7794eade44f7e6626789, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stairsPart: []
-  _stairLenght: 0
-  _index: 0
-  Inventory: {fileID: 8695111178813702387}
-  _doBridge: 0
 --- !u!1 &1842654490839217558
 GameObject:
   m_ObjectHideFlags: 0
@@ -2814,7 +2796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8695111178813702386}
   - component: {fileID: 8695111178813702387}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Bag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2849,7 +2831,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemList: []
-  BridgeMaker: {fileID: 1678760558606387848}
+  BridgeMaker: {fileID: 0}
   _index: 0
   _changeLayer:
     serializedVersion: 2

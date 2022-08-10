@@ -7,34 +7,36 @@ public class ItemCollector : MonoBehaviour
 {
     private Vector3 _targetPosition;
     private CollectableItemScript _item;
-    [SerializeField] private GameObject _bag;
     [SerializeField] private float _itemSpeed;
     [SerializeField] private int _colorID;
     [SerializeField] private Vector3 _offSet;
-    [SerializeField] private PlayerBag Inventory;
+    [SerializeField] private PlayerBag _inventory;
     public PlayerBag GetInventory
     {
-        get => Inventory;
+        get => _inventory;
     }
     private bool _doBridge;
     public void SetDoBridge(bool value)
     {
         _doBridge = value;
     }
-
+    private void Start()
+    {
+        Debug.Log(_inventory.name);
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (Inventory.GetIndex() == 0)
+        if (_inventory.GetIndex() == 0)
         {
             _targetPosition = Vector3.zero;
         }
         _item = other.GetComponent<CollectableItemScript>();
         if (_colorID == _item.ColorID && !_doBridge)
         {
-            Inventory.AddObjectToInvectory(_item.gameObject);
+            _inventory.AddObjectToInvectory(_item.gameObject);
             _item.OffCollider();
-            _item.transform.parent = _bag.transform;
-            _targetPosition.y = _offSet.y * Inventory.GetIndex();
+            _item.transform.parent = _inventory.transform;
+            _targetPosition.y = _offSet.y * _inventory.GetIndex();
             _item.transform.DOLocalMove(_targetPosition, _itemSpeed).SetSpeedBased();
         }
     }

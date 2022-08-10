@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerBag : MonoBehaviour
 {
     [SerializeField] public List<GameObject> ItemList;
-    [SerializeField] private BridgeMaker BridgeMaker;
     [SerializeField] private int _index;
     [SerializeField] private LayerMask _changeLayer;
     PlayerController PController;
@@ -57,7 +56,7 @@ public class PlayerBag : MonoBehaviour
                 objj = hit.transform.gameObject;
                 objj.layer = LayerMask.NameToLayer("Default");
                 GetItemFromInventory();
-                BridgeMaker.MakeBridge(objj);
+                objj.GetComponent<StairParts>().Active();
             }
         }
     }

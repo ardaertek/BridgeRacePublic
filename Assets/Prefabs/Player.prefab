@@ -296,6 +296,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemList: []
   _index: 0
+  _changeLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  rayPos: {fileID: 0}
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
+  check: 0
 --- !u!1 &1729961090192389303
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,11 +414,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67703a5e814678b41928f35cce5374eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bag: {fileID: 1729961089918953255}
   _itemSpeed: 80
   _colorID: 1
   _offSet: {x: 0, y: 2, z: 0}
-  Inventory: {fileID: 1729961089918953253}
+  _inventory: {fileID: 1729961089918953253}
 --- !u!1 &3372950737730020713
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +430,6 @@ GameObject:
   - component: {fileID: 4023802891387706311}
   - component: {fileID: 4023802891387706308}
   - component: {fileID: 4023802891387706310}
-  - component: {fileID: 4023802891387706314}
   - component: {fileID: 965762821686325331}
   - component: {fileID: 2703550108304834526}
   m_Layer: 0
@@ -496,27 +502,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _joystick: {fileID: 0}
   MovementSpeed: 5
---- !u!114 &4023802891387706314
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3372950737730020713}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56141f1cb34b5b348b11c32b440995cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _firstStepPos: {fileID: 0}
-  _itemSpeed: 80
-  _offSet: {x: 0, y: 0.6, z: 0.7}
-  _stepIndex: 0
-  Inventory: {fileID: 1729961089918953253}
-  _stepCount: 30
-  _bridgeParts: {fileID: 0}
-  _doBridge: 0
-  _stairsPart: []
+  Pos: {x: 0, y: 0, z: 0}
 --- !u!95 &965762821686325331
 Animator:
   serializedVersion: 4
