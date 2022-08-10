@@ -16,12 +16,7 @@ public class ItemCollector : MonoBehaviour
     {
         get => Inventory;
     }
-    AnimatorController _animC;
     private bool _doBridge;
-    private void Start()
-    {
-        _animC = GetComponentInParent<AnimatorController>();
-    }
     public void SetDoBridge(bool value)
     {
         _doBridge = value;

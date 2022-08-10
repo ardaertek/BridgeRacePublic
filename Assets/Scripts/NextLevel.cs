@@ -4,25 +4,34 @@ using UnityEngine;
 
 public class NextLevel : MonoBehaviour
 {
-    [SerializeField] private GameObject _nextSpawner;
-    [SerializeField] private GameObject _previousSpawner;
-    [SerializeField] private GameObject _previousHolder;
+    [SerializeField] LevelHolder NextLevelHolder;
+    [SerializeField] LevelHolder PreviousLevelHolder;
     Collider col;
+    int playerCount;
+    int maxPlayer = 2;
     private void Start()
     {
         col = GetComponent<Collider>();
     }
     private void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<PlayerController>().Pos = new Vector3(0, 3, 25);
-        _previousSpawner.SetActive(false);
-        if(_nextSpawner != null)
-        _nextSpawner.SetActive(true);
-        
+        other.transform.parent = NextLevelHolder.transform;
+        PlayerBag bag = other.GetComponentInChildren<PlayerBag>();
+        PreviousLevelHolder.FindSpawner(bag.gameObject,false);
+        NextLevelHolder.FindSpawner(bag.gameObject, true);
     }
     private void OnTriggerExit(Collider other)
     {
-        col.isTrigger = false;
-        _previousHolder.SetActive(false);
+        playerCount++;
     }
+    private void Update()
+    {
+        if (playerCount == maxPlayer)
+        {
+            col.isTrigger = false;
+        }
+    }
+
+
+
 }

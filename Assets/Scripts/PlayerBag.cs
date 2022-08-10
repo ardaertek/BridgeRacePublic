@@ -9,6 +9,7 @@ public class PlayerBag : MonoBehaviour
     [SerializeField] private int _index;
     [SerializeField] private LayerMask _changeLayer;
     PlayerController PController;
+    
     public int GetIndex()
     {
         return _index;
@@ -21,8 +22,9 @@ public class PlayerBag : MonoBehaviour
     public void AddObjectToInvectory(GameObject obj)
     {
         _index++;
-        PController.MovementSpeed -= 0.01f * ItemList.Count;
         ItemList.Add(obj);
+        if(PController)
+        PController.MovementSpeed -= 0.01f * ItemList.Count;
     }
     public void GetItemFromInventory()
     {
@@ -31,6 +33,7 @@ public class PlayerBag : MonoBehaviour
             return;
         }
         _index--;
+        if(PController)
         PController.MovementSpeed += 0.01f * ItemList.Count;
         GameObject obj = ItemList[ItemList.Count - 1];
         ItemList.Remove(obj);
@@ -55,36 +58,7 @@ public class PlayerBag : MonoBehaviour
                 objj.layer = LayerMask.NameToLayer("Default");
                 GetItemFromInventory();
                 BridgeMaker.MakeBridge(objj);
-                Debug.Log(objj.name);
             }
         }
     }
-
-
-    //private IEnumerator _bridgeCourutine;
-
-    //public void BridgeCourutineStarter()
-    //{
-    //    _bridgeCourutine = DoBridgeCourutine();
-    //    StartCoroutine(_bridgeCourutine);
-    //}
-    //public void BridgeCourutineStoper()
-    //{
-
-    //    if (_bridgeCourutine != null)
-    //    {
-    //        StopCoroutine(_bridgeCourutine);
-    //        _bridgeCourutine = null;
-    //    }
-    //}
-    //IEnumerator DoBridgeCourutine()
-    //{
-    //    int loopCount = ItemList.Count;
-    //    for (int i = 0; i < loopCount; i++)
-    //    {
-    //        GetItemFromInventory();
-    //        BridgeMaker.MakeBridge(objj);
-    //        yield return new WaitForSeconds(0.5f);
-    //    }
-    //}
 }
