@@ -13,14 +13,28 @@ public class AIController : MonoBehaviour
     float _sightRange = 4f, _timer, _timeFreq = 1.5f;
     //-------------
     LevelHolder _levelHolder;
-    public bool _doBridge;
+    private bool _doBridge;
+    public bool DoBridge
+    {
+        set
+        {
+            _doBridge = value;
+        }
+        get { return _doBridge; }
+    }
     public bool _goEntry;
-    public float _steCount;
+    public float _stepCount;
     private void Start()
     {
         _levelHolder = GetComponentInParent<LevelHolder>();
         _inventory = GetComponentInChildren<PlayerBag>();
         nav = GetComponent<NavMeshAgent>();
+    }
+    float _maxDistance = 0.2f;
+    bool close;
+    void NavSetDestination(Vector3 pos)
+    {
+        nav.SetDestination(pos);
     }
     private void Update()
     {
@@ -31,29 +45,47 @@ public class AIController : MonoBehaviour
         {
             if (_inventory.ItemList.Count != 0)
             {
-                nav.SetDestination(_bridgeSelecter().GetComponent<Bridges>().ExitPoint.position);
+                NavSetDestination(_bridgeSelecter().GetComponent<Bridges>().ExitPoint.position);
             }
-            if(_inventory.ItemList.Count == 0)
+            if (_inventory.ItemList.Count == 0)
             {
-                if(_steCount != 26) nav.SetDestination(_levelHolder.LevelPosition.position);
-                if(_steCount == 26) nav.SetDestination(_bridgeSelecter().GetComponent<Bridges>().ExitPoint.position);
+                if (_stepCount != 26)
+                {
+                    NavSetDestination(_levelHolder.LevelPosition.position);
+                }
+                else
+                {
+                    NavSetDestination(_bridgeSelecter().GetComponent<Bridges>().ExitPoint.position);
+                }
             }
         }
-        if (_inventory.ItemList.Count >= 7 && !_doBridge)
+        else
         {
-            nav.SetDestination(_bridgeSelecter().GetComponent<Bridges>().EntryPoint.position);
-            _sightRange = 1.5f;
+            if (_inventory.ItemList.Count >= 7)
+            {
+                NavSetDestination(_bridgeSelecter().GetComponent<Bridges>().EntryPoint.position);
+                _sightRange = 1.5f;
+            }
+            else
+            {
+                _sightRange = 4f;
+            }
+            if (_collectableObjects.Length != 0)
+            {
+                NavSetDestination(_mostCloseObject());
+            }
+            else if (_collectableObjects.Length == 0 && _timer > _timeFreq && _inventory.ItemList.Count < 7)
+            {
+                NavSetDestination(_randomPatrolling());
+                _timer = 0;
+            }
         }
-        else _sightRange = 4f;
-        if (_collectableObjects.Length != 0)
-        {
-            nav.SetDestination(_mostCloseObject());
-        }
-        else if (_collectableObjects.Length == 0 && _timer > _timeFreq && _inventory.ItemList.Count < 7)
-        {
-            nav.SetDestination(_randomPatrolling());
-            _timer = 0;
-        }
+        /*  if (_inventory.ItemList.Count >= 7 && !_doBridge)
+          {
+
+          }
+         // else*/
+
     }
 
 

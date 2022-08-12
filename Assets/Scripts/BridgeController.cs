@@ -17,10 +17,11 @@ public class BridgeController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IC = other.GetComponentInChildren<ItemCollector>();
+        Index += IC.GetInventory.GetIndex();
         if (other.TryGetComponent(out AIC))
         {
-            AIC._steCount = Index;
-            AIC._doBridge = true;
+            AIC._stepCount = Index;
+            AIC.DoBridge = true;
         }
         IC.SetDoBridge(true);
     }
@@ -28,8 +29,17 @@ public class BridgeController : MonoBehaviour
     {
         if (other.TryGetComponent(out AIC))
         {
-            AIC._doBridge = false;
+            AIC.DoBridge = false;
+            
         }
         IC.SetDoBridge(false);
     }
+    private void Update()
+    {
+        if (Index == 26)
+        {
+            Debug.Log("26");
+        }
+    }
+
 }

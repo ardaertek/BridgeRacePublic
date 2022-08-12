@@ -31,8 +31,9 @@ public class ItemCollector : MonoBehaviour
             _targetPosition = Vector3.zero;
         }
         _item = other.GetComponent<CollectableItemScript>();
-        if (_colorID == _item.ColorID && !_doBridge)
+        if (_colorID == _item.ColorID && _item.CanCollect)
         {
+            _item.CanCollect = false;
             _inventory.AddObjectToInvectory(_item.gameObject);
             _item.OffCollider();
             _item.transform.parent = _inventory.transform;

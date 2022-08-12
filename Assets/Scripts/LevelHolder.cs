@@ -8,7 +8,6 @@ public class LevelHolder : MonoBehaviour
     [SerializeField] public Bridges[] Bridge;
     [SerializeField] public Spawners[] Spawners;
     public Transform LevelPosition;
-    public Transform[] BridgesTransform;
 
     private void Awake()
     {

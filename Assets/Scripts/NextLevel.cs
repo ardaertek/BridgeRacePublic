@@ -9,6 +9,7 @@ public class NextLevel : MonoBehaviour
     Collider col;
     int playerCount;
     int maxPlayer = 2;
+    AnimatorController AnimC;
     private void Start()
     {
         col = GetComponent<Collider>();
@@ -29,6 +30,7 @@ public class NextLevel : MonoBehaviour
         if (playerCount == maxPlayer)
         {
             col.isTrigger = false;
+            PreviousLevelHolder.GetComponentInChildren<AnimatorController>().isLose(true);
         }
     }
 
