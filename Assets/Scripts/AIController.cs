@@ -11,6 +11,7 @@ public class AIController : MonoBehaviour
     [SerializeField] Collider[] _collectableObjects;
     [SerializeField] LayerMask _cubeLayer;
     float _sightRange = 4f, _timer, _timeFreq = 1.5f;
+    AnimatorController AnimC;
     //-------------
     LevelHolder _levelHolder;
     private bool _doBridge;
@@ -26,14 +27,16 @@ public class AIController : MonoBehaviour
     public float _stepCount;
     private void Start()
     {
+        AnimC = GetComponent<AnimatorController>();
         _levelHolder = GetComponentInParent<LevelHolder>();
         _inventory = GetComponentInChildren<PlayerBag>();
         nav = GetComponent<NavMeshAgent>();
     }
-    float _maxDistance = 0.2f;
+    //float _maxDistance = 0.2f;
     bool close;
     void NavSetDestination(Vector3 pos)
     {
+        AnimC.isRunning(true);
         nav.SetDestination(pos);
     }
     private void Update()
